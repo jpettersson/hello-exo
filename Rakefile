@@ -1,45 +1,75 @@
-task :default => [:setup]
+namespace :setup do
 
-task :setup do
-	path = File.dirname(__FILE__)
-
-	# 1. Setup git submodules
-	submodules = {
-		:spine => "https://github.com/maccman/spine.git",
-		:exo => "https://github.com/jpettersson/exo.js.git"
-	}
-
-	puts %x{git init}
-	puts %x{git add .gitmodules}
-
-	submodules.each do |sub|
-		puts %x{git submodule add #{sub[1]} vendor/#{sub[0]}}
+	task :default do
+		Rake::Task['git:init'].execute
+		Rake::Task['git:add_submodules'].execute
+		Rake::Task['git:update_remote'].execute
+		Rake::Task['git:initial_commit'].execute
 	end
 
-	puts %x{git commit -m 'Added the spine and exo submodules'}
+end
 
-	# 2. Update the git remote if it's pointing to the official Github repo for the template.
-	remote = %x{git config --get remote.origin.url}
-	if remote.include? "jpettersson/middleman-spine-exo.git"
-		
-		# Prompt user to input a new origin URL
-		puts "The remote URL for this repo is currently: #{remote}"
-		puts "Would you like to update it? (y/n): yes"
-		input = STDIN.gets.strip.downcase
-		if input.length == 0 or input == 'y'
-			puts "Enter the new remote URL:"
-			
-			# update the origin remote
-			new_repo = STDIN.gets.strip
-			%x{git config --unset remote.origin.url}
-			%x{git config --unset remote.origin.url #{new_repo}}
+namespace :git do
+
+	task :init do
+		# Set up git repository
+		puts %x{git init}
+	end
+
+	task :add_submodules => ['git:init'] do
+		submodules = {
+			:spine => "https://github.com/maccman/spine.git",
+			:exo => "https://github.com/jpettersson/exo.js.git"
+		}
+
+		submodules.each do |sub|
+			puts %x{git submodule add #{sub[1]} vendor/#{sub[0]}}
 		end
 
-		puts "Finally, would you like to commit the current directory? (y/n): yes"
+		# Symlink the coffeescript src from spine & exo into the project source folder.
+		cmd = [	
+			"cd source/javascripts/vendor", 
+			"ln -s ../../../vendor/spine/src _spine", 
+			"ln -s ../../../vendor/exo/src _exo"	
+		].join(' && ')
+		
+		puts %x{#{cmd}}
+
+		#puts %x{git add .gitmodules source/javascript/vendor/spine source/javascript/vendor/exo}
+	end
+
+	task :update_remote => ['git:init'] do
+		# 2. Update the git remote if it's pointing to the official Github repo for the template.
+		remote = %x{git config --get remote.origin.url}
+		if remote.include? "jpettersson/middleman-spine-exo.git"
+			
+			# Prompt user to input a new origin URL
+			puts "The remote URL for this repo is currently: #{remote}"
+			puts "Would you like to update it? (y/n): yes"
+			input = STDIN.gets.strip.downcase
+			if input.length == 0 or input == 'y'
+				puts "Enter the new remote URL:"
+				
+				# update the origin remote
+				new_repo = STDIN.gets.strip
+				%x{git config --unset remote.origin.url}
+				%x{git config --unset remote.origin.url #{new_repo}}
+			end
+
+			puts "Finally, would you like to commit the current directory? (y/n): yes"
+			## Rakegit_add_project
+		end
+	end
+
+	task :add_project do
 		input = STDIN.gets.strip.downcase
 		if input.length == 0 or input == 'y'
 			puts %{git add .}
-			puts %{git commit -m "Added the scaffolded project"}
 		end
 	end
+
+	task :initial_commit do
+		puts %{git commit -m "Added the scaffolded middleman project"}
+	end
+	
 end
