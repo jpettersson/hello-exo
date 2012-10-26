@@ -1,0 +1,20 @@
+!!! 5
+/[if lt IE 7]
+  %html.no-js.lt-ie9.lt-ie8.lt-ie7{ lang: "en" }
+/[if IE 7]
+  %html.no-js.lt-ie9.lt-ie8{ lang: "en" }
+/[if IE 8]
+  %html.no-js.lt-ie9{ lang: "en" }
+<!--[if gt IE 8]><!-->
+%html.no-js{ lang: "en" }
+  <!--<![endif]-->
+  %head
+    %meta{:charset => "utf-8"}
+    %meta{:content => "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"}
+    %meta{:name => "viewport", :content => "width=device-width, maximum-scale=1.0"}
+    = stylesheet_link_tag 'global.css'
+    = javascript_include_tag 'lib.js'
+    = yield_content :head
+
+  %body{:class => page_classes}
+    = yield
