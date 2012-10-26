@@ -1,3 +1,5 @@
+task :setup => 'setup:default'
+
 namespace :setup do
 
 	task :default do
@@ -34,8 +36,6 @@ namespace :git do
 		].join(' && ')
 		
 		puts %x{#{cmd}}
-
-		#puts %x{git add .gitmodules source/javascript/vendor/spine source/javascript/vendor/exo}
 	end
 
 	task :update_remote => ['git:init'] do
@@ -56,17 +56,17 @@ namespace :git do
 				%x{git config --unset remote.origin.url #{new_repo}}
 			end
 
-			puts "Finally, would you like to commit the current directory? (y/n): yes"
-			## Rakegit_add_project
+			# puts "Finally, would you like to commit the current directory? (y/n): yes"
+			# input = STDIN.gets.strip.downcase
+			# if input.length == 0 or input == 'y'
+			# 	Rake::Task['git:add_project'].execute
+			# end
 		end
 	end
 
-	task :add_project do
-		input = STDIN.gets.strip.downcase
-		if input.length == 0 or input == 'y'
-			puts %{git add .}
-		end
-	end
+	# task :add_project do
+	# 	puts %{git add .}
+	# end
 
 	task :initial_commit do
 		puts %{git commit -m "Added the scaffolded middleman project"}
