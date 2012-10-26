@@ -6,7 +6,6 @@ namespace :setup do
 		Rake::Task['git:init'].execute
 		Rake::Task['git:add_submodules'].execute
 		Rake::Task['git:update_remote'].execute
-		Rake::Task['git:initial_commit'].execute
 	end
 
 end
@@ -14,7 +13,6 @@ end
 namespace :git do
 
 	task :init do
-		# Set up git repository
 		puts %x{git init}
 	end
 
@@ -36,6 +34,22 @@ namespace :git do
 		].join(' && ')
 		
 		puts %x{#{cmd}}
+
+		# Add the .gitmodules & symlinks to the repo
+		files = [
+			'.gitmodules',
+			'vendor/',
+			'source/javascripts/vendor/_spine',
+			'source/javascripts/vendor/_exo'
+		]
+
+		%x{git add #{files.join(' ')}}
+		
+		Rake::Task['git:initial_commit'].execute
+	end
+
+	task :initial_commit do
+		puts %{git commit -m "Added the scaffolded middleman project"}
 	end
 
 	task :update_remote => ['git:init'] do
@@ -45,7 +59,7 @@ namespace :git do
 			
 			# Prompt user to input a new origin URL
 			puts "The remote URL for this repo is currently: #{remote}"
-			puts "Would you like to update it? (y/n): yes"
+			puts "Would you like to update it? (y/n): y"
 			input = STDIN.gets.strip.downcase
 			if input.length == 0 or input == 'y'
 				puts "Enter the new remote URL:"
@@ -56,20 +70,7 @@ namespace :git do
 				%x{git config --unset remote.origin.url #{new_repo}}
 			end
 
-			# puts "Finally, would you like to commit the current directory? (y/n): yes"
-			# input = STDIN.gets.strip.downcase
-			# if input.length == 0 or input == 'y'
-			# 	Rake::Task['git:add_project'].execute
-			# end
 		end
 	end
 
-	# task :add_project do
-	# 	puts %{git add .}
-	# end
-
-	task :initial_commit do
-		puts %{git commit -m "Added the scaffolded middleman project"}
-	end
-	
 end
