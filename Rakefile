@@ -44,12 +44,12 @@ namespace :git do
 		]
 
 		%x{git add #{files.join(' ')}}
-		
+
 		Rake::Task['git:initial_commit'].execute
 	end
 
 	task :initial_commit do
-		puts %{git commit -m "Added the scaffolded middleman project"}
+		puts %x{git commit -m "Added the scaffolded middleman project"}
 	end
 
 	task :update_remote => ['git:init'] do
