@@ -32,7 +32,7 @@ task :setup do
 			# update the origin remote
 			new_repo = STDIN.gets.strip
 			%x{git config --unset remote.origin.url}
-			%x{git config --unset remote.origin.url #{repo_url}}
+			%x{git config --unset remote.origin.url #{new_repo}}
 		end
 
 		puts "Finally, would you like to commit the current directory? (y/n): yes"
