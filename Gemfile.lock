@@ -20,7 +20,6 @@ GEM
       multi_json (~> 1.0)
     ffi (1.1.5)
     fssm (0.2.9)
-    git (1.2.5)
     haml (3.1.7)
     haml_coffee_assets (1.6.0)
       coffee-script (>= 1.0.0)
@@ -111,7 +110,6 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-filter
-  git
   haml_coffee_assets
   middleman (~> 3.0.6)
   sprockets-commonjs
