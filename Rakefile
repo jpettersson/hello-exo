@@ -20,7 +20,7 @@ task :setup do
 
 	# 2. Update the git remote if it's pointing to the official Github repo for the template.
 	remote = %x{git config --get remote.origin.url}
-	if remote == "https://github.com/jpettersson/middleman-spine-exo.git"
+	if remote.include? "jpettersson/middleman-spine-exo.git"
 		
 		# Prompt user to input a new origin URL
 		puts "The remote URL for this repo is currently: #{remote}"
