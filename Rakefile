@@ -67,7 +67,7 @@ namespace :git do
 				# update the origin remote
 				new_repo = STDIN.gets.strip
 				%x{git config --unset remote.origin.url}
-				%x{git config --set remote.origin.url #{new_repo}}
+				%x{git config --add remote.origin.url #{new_repo}}
 			end
 
 		end
