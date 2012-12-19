@@ -4,7 +4,7 @@ A very basic demonstration app that shows how [Exo.js](https://github.com/jpette
 
 ## Setup
 
-After cloning this repo, set up and update the submodules to get the Spine and Exo code: 
+This demo is a middleman project. After cloning this repo, set up and update the submodules to get the Spine and Exo code: 
 
 ```
   git submodule init
