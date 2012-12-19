@@ -9,8 +9,6 @@ class Main extends Exo.Spine.Controller
 		super
 			initialState: Exo.Node.States.ACTIVATED
 
-		console.log @mode()
-
 	activateNext: (next) ->
 		unless @next
 			@next = next
