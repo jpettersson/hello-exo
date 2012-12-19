@@ -7,21 +7,17 @@ class Machine extends Exo.Spine.Controller
 
 	doActivate: ->
 		@el.show()
-		TweenLite.from(@el, .5, {
-			css: {
+		TweenLite.from @el, .5
+			css:
 				scale: 0
-			},
 			ease: Quad.easeOut,
 			onComplete: => @onActivated()
-		})
 
 	doDeactivate: ->
-		TweenLite.to(@el, .5, {
-			css: {
+		TweenLite.to @el, .5
+			css:
 				scale: 0
-			},
 			ease: Quad.easeIn,
 			onComplete: => @onDeactivated()
-		})
 
 module.exports = Machine

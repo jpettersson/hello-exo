@@ -50,15 +50,13 @@ class Superstars extends Exo.Spine.Controller
 
 	doActivate: ->
 		@el.show()
-		TweenLite.from(@el, 3, {
-			css: {
+		TweenLite.from @el, 3
+			css:
 				left: -500
 				rotation: 90
 				alpha: 0
-			},
 			ease: Elastic.easeOut,
 			onComplete: @onActivated
-		})
 
 	onActivated: =>
 		super
@@ -68,21 +66,17 @@ class Superstars extends Exo.Spine.Controller
 
 		# making the .input visible before the animation
 		$('.input').show()
-		TweenLite.from($('.input'), 5, {
-			css: {
+		TweenLite.from $('.input'), 5
+			css:
 				alpha: 0
-			},
-		})
 
 	doDeactivate: ->
-		TweenLite.to(@el, 2, {
-			css: {
+		TweenLite.to @el, 2
+			css:
 				rotation: 360
 				alpha: 0
-			},
 			ease: Quad.easeIn,
 			onComplete: => @onDeactivated()
-		})
 
 	createStar: (e) ->
 		# enter was pressed? we have some content?

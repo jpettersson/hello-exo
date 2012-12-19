@@ -21,29 +21,25 @@ class Machines extends Exo.Spine.Controller
 
 	doActivate: ->
 		@el.show()
-		TweenLite.from(@el, 3, {
-			css: {
+		TweenLite.from @el, 3
+			css:
 				top: -500
 				rotation: 90
 				alpha: 0
-			},
 			ease: Elastic.easeOut,
 			onComplete: @onActivated
-		})
 
 	onActivated: =>
 		super
 		@machine.activate()
 
 	doDeactivate: ->
-		TweenLite.to(@el, 2, {
-			css: {
+		TweenLite.to @el, 2
+			css:
 				rotation: 90
 				alpha: 0
-			},
 			ease: Elastic.easeIn,
 			onComplete: => @onDeactivated()
-		})
 
 	render: =>
 		@html JST['_hello_app/views/machines']()	
