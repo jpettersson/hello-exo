@@ -1,6 +1,6 @@
-middleman-spine-exo
-===================
+# Hello Exo!
 
-A middleman template that brings Spine.js and Exo.js + other goodies.
+A very basic demonstration app that shows how [Exo.js](https://github.com/jpettersson/exo.js) integrates nicely with [Spine.js](http://spinejs.com/) and [TweenLite](http://www.greensock.com/tweenlite/).
 
-#Work in progress!
+## Setup
+The example app is a middleman project, so just clone, bundle and run as usual.
