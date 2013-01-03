@@ -12,9 +12,8 @@
 //= require 'vendor/_spine/local'
 
 # Pull in the exo.js coffeescript source from the symlinked exo submodule.
-//= require 'vendor/_exo/exo.module'
+//= require 'vendor/_exo/exo'
+//= require 'vendor/_exo/spine'
 
 # Using TweenMax for nice & easy animations.
 //= require 'vendor/_TweenMax.min'
-
-Exo = require 'vendor/_exo/exo'
